@@ -61,35 +61,12 @@ class _TodoLayoutState extends State<TodoLayout> {
             },
             undo: () {
               setState(() {
-                todoList[index].isDone = 1;
+                todoList[index].isDone = -1;
               });
             },
           );
         },
       ),
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.stretch,
-      //     children: todoList
-      //         .map((todo) => TodoCard(
-      //               todo: todo,
-      //               delete: () {
-      //                 setState(() {
-      //                   todoList.remove(todo);
-      //                 });
-      //               },
-      //               edit: () async {
-      //                 await addDialog(todo, 'Edit');
-      //               },
-      //               complete: () {
-      //                 setState(() {
-      //                   todoList.remove(todo);
-      //                 });
-      //               },
-      //             ))
-      //         .toList(),
-      //   ),
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => addDialog(Todo(-1, '', '', 0), 'Add'),
         child: const Icon(Icons.add),

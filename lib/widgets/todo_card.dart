@@ -29,14 +29,19 @@ class TodoCard extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
+                  decorationThickness: 3,
                   decoration: todo.isDone == 1
                       ? TextDecoration.lineThrough
                       : TextDecoration.none),
             ),
-            Text(todo.details,
-                style: todo.isDone == 1
-                    ? const TextStyle(decoration: TextDecoration.lineThrough)
-                    : const TextStyle(decoration: TextDecoration.none)),
+            Text(
+              todo.details,
+              style: TextStyle(
+                  decorationThickness: 2,
+                  decoration: todo.isDone == 1
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none),
+            ),
             Align(
               alignment: Alignment.bottomRight,
               child: Wrap(
@@ -55,7 +60,7 @@ class TodoCard extends StatelessWidget {
                   ),
                   todo.isDone == 1
                       ? IconButton(
-                          onPressed: () => done(),
+                          onPressed: () => undo(),
                           icon: const Icon(Icons.undo),
                           color: Colors.blue,
                           tooltip: 'Undo',
