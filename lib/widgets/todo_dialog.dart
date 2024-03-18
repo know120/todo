@@ -28,6 +28,8 @@ class TodoDialog extends StatelessWidget {
         ),
         const SizedBox(height: 8.0),
         TextFormField(
+          minLines: 2,
+          maxLines: 4,
           controller: secondController,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),

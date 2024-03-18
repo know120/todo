@@ -55,7 +55,7 @@ class TodoCard extends StatelessWidget {
                   IconButton(
                     onPressed: () => edit(),
                     icon: const Icon(Icons.edit),
-                    color: Colors.grey,
+                    color: Colors.grey[800],
                     tooltip: 'Edit',
                   ),
                   todo.isDone == 1
