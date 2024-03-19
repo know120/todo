@@ -52,15 +52,6 @@ class _TodoLayoutState extends State<TodoLayout> {
               })
             });
       }
-      // setState(() {
-      //   if (todoList.contains(todo)) {
-      //     todoList[todoList.indexOf(todo)] = res;
-      //     dbHandler.insertTodo(res);
-      //   } else {
-      //     dbHandler.insertTodo(res).then((value) => {print('id is $value')});
-      //     todoList.insert(0, res);
-      //   }
-      // });
     }
   }
 
@@ -78,10 +69,6 @@ class _TodoLayoutState extends State<TodoLayout> {
                       todoList.removeAt(index);
                     })
                   });
-              // setState(() {
-              //   dbHandler.deleteTodo(todoList[index].id);
-              //   todoList.remove(todoList[index]);
-              // });
             },
             edit: () async {
               await addDialog(todoList[index], 'Edit');
@@ -94,11 +81,6 @@ class _TodoLayoutState extends State<TodoLayout> {
                       todoList.add(todo);
                     })
                   });
-              // setState(() {
-              //   var todo = todoList.removeAt(index);
-              //   todo.isDone = 1;
-              //   todoList.add(todo);
-              // });
             },
             undo: () {
               var todo = todoList.removeAt(index);
@@ -108,11 +90,6 @@ class _TodoLayoutState extends State<TodoLayout> {
                       todoList.insert(0, todo);
                     })
                   });
-              // setState(() {
-              //   var todo = todoList.removeAt(index);
-              //   todo.isDone = -1;
-              //   todoList.insert(0, todo);
-              // });
             },
           );
         },
