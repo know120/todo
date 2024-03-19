@@ -9,7 +9,8 @@ class TodoApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 6, 6, 14)),
+          seedColor: Colors.blueGrey,
+        ),
         useMaterial3: true,
       ),
       home: const Home(),

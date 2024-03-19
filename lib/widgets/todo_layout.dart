@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/db/db.dart';
 import 'package:todo/models/todo.dart';
 import 'package:todo/widgets/todo_card.dart';
 import 'package:todo/widgets/todo_dialog.dart';
@@ -11,11 +12,19 @@ class TodoLayout extends StatefulWidget {
 }
 
 class _TodoLayoutState extends State<TodoLayout> {
-  List<Todo> todoList = [
-    // Todo('first', 'first todo'),
-    // Todo('second', 'second todo'),
-    // Todo('third', 'third todo'),
-  ];
+  late DataBase dbHandler;
+  List<Todo> todoList = [];
+
+  @override
+  initState() {
+    super.initState();
+    dbHandler = DataBase();
+    dbHandler.getTodo().then((value) => {
+          setState(() {
+            todoList.addAll(value);
+          })
+        });
+  }
 
   Future<void> addDialog(Todo todo, String title) async {
     Todo? res = await showDialog(
@@ -28,13 +37,30 @@ class _TodoLayoutState extends State<TodoLayout> {
           );
         });
     if (res != null) {
-      setState(() {
-        if (todoList.contains(todo)) {
-          todoList[todoList.indexOf(todo)] = res;
-        } else {
-          todoList.insert(0, res);
-        }
-      });
+      if (todoList.contains(todo)) {
+        dbHandler.updateTodo(res).then((value) => {
+              setState(() {
+                res.id = value;
+                todoList[todoList.indexOf(todo)] = res;
+              })
+            });
+      } else {
+        dbHandler.insertTodo(res).then((value) => {
+              setState(() {
+                res.id = value;
+                todoList.insert(0, res);
+              })
+            });
+      }
+      // setState(() {
+      //   if (todoList.contains(todo)) {
+      //     todoList[todoList.indexOf(todo)] = res;
+      //     dbHandler.insertTodo(res);
+      //   } else {
+      //     dbHandler.insertTodo(res).then((value) => {print('id is $value')});
+      //     todoList.insert(0, res);
+      //   }
+      // });
     }
   }
 
@@ -47,22 +73,46 @@ class _TodoLayoutState extends State<TodoLayout> {
           return TodoCard(
             todo: todoList[index],
             delete: () {
-              setState(() {
-                todoList.remove(todoList[index]);
-              });
+              dbHandler.deleteTodo(todoList[index].id).then((value) => {
+                    setState(() {
+                      todoList.removeAt(index);
+                    })
+                  });
+              // setState(() {
+              //   dbHandler.deleteTodo(todoList[index].id);
+              //   todoList.remove(todoList[index]);
+              // });
             },
             edit: () async {
               await addDialog(todoList[index], 'Edit');
             },
             done: () {
-              setState(() {
-                todoList[index].isDone = 1;
-              });
+              var todo = todoList.removeAt(index);
+              todo.isDone = 1;
+              dbHandler.updateTodo(todo).then((value) => {
+                    setState(() {
+                      todoList.add(todo);
+                    })
+                  });
+              // setState(() {
+              //   var todo = todoList.removeAt(index);
+              //   todo.isDone = 1;
+              //   todoList.add(todo);
+              // });
             },
             undo: () {
-              setState(() {
-                todoList[index].isDone = -1;
-              });
+              var todo = todoList.removeAt(index);
+              todo.isDone = -1;
+              dbHandler.updateTodo(todo).then((value) => {
+                    setState(() {
+                      todoList.insert(0, todo);
+                    })
+                  });
+              // setState(() {
+              //   var todo = todoList.removeAt(index);
+              //   todo.isDone = -1;
+              //   todoList.insert(0, todo);
+              // });
             },
           );
         },
