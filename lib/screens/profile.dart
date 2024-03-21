@@ -3,37 +3,37 @@ import 'package:todo/models/user.dart';
 
 class Profile extends StatelessWidget {
   final User user;
-  Profile({super.key, required this.user});
+  const Profile({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        margin: EdgeInsets.fromLTRB(0, 100, 0, 100),
+        margin: const EdgeInsets.fromLTRB(0, 100, 0, 100),
         elevation: 15,
         child: Padding(
-          padding: EdgeInsets.all(90),
+          padding: const EdgeInsets.all(90),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 backgroundImage: AssetImage('assets/images/profile.jpg'),
                 radius: 75,
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Text(
                 user.username,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 user.name,
-                style: TextStyle(fontSize: 25),
+                style: const TextStyle(fontSize: 25),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 user.email,
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
             ],
           ),

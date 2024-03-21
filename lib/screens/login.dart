@@ -8,7 +8,7 @@ class Login extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           'Log In',
           style: TextStyle(
             fontSize: 25,
@@ -16,8 +16,8 @@ class Login extends StatelessWidget {
         ),
         ElevatedButton.icon(
           onPressed: () {},
-          icon: Icon(Icons.mail),
-          label: Text('Login with Google'),
+          icon: const Icon(Icons.mail),
+          label: const Text('Login with Google'),
         )
       ],
     );
